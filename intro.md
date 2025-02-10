@@ -9,16 +9,17 @@ Summarize the pdf and can ask questions on the uploaded pdf
     - run algo on each chunk to gen summary and store inDB
     - after that when use asks questions, figure out what they are asking about and look at text summaries in the DB, then find most relavent text
     - sent that summary and the prompt to GPT now
-    
-    a. Divide text into chunk size 1024 chars for eg
-    b. convert each chunk into an embedding: list of embeddings.
-    c. store these into a vector DB like SQL, but best ot use vector store.
-    d. When prompt submitted, convert it to embedding vector
-    e. find most relavent chunk to the propmt: find closest embedding in the vector store to this using a distance measure
-    f. take the prompt, closest chunk and then create another prompt contianing both of these
-        - Dear GPT, Did you know that "chunk"? Also, "prompt"?
-    g. send this prompt to GPT
-    h. GPT just regurgitates the part of pdf we sent it, the crucial thing was embedding, chunking, looking up embeddings
+
+Steps:
+1. Divide text into chunk size 1024 chars for eg
+2. convert each chunk into an embedding: list of embeddings.
+3. store these into a vector DB like SQL, but best ot use vector store.
+4. When prompt submitted, convert it to embedding vector
+5. find most relavent chunk to the propmt: find closest embedding in the vector store to this using a distance measure
+6. take the prompt, closest chunk and then create another prompt contianing both of these
+    - Dear GPT, Did you know that "chunk"? Also, "prompt"?
+7. send this prompt to GPT
+8. GPT just regurgitates the part of pdf we sent it, the crucial thing was embedding, chunking, looking up embeddings
 
 ## embedding
 In: str, Out: arr of numbers. Always 1536 elements. each num is from -1 to 1. This distills the essesnce of what text is talkin about. each number in array is a score that talks about what the text is discussing, eg idx 0 could be sentiment, idx 1 can be objects, idx 2 can be verb
